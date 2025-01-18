@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .choices {
+            margin: 20px;
+        }
+
+        .choice-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .choice-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .choice-btn:active {
+            background-color: #004085;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .game-images {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .game-images img {
+            width: 50px;
+            height: 50px;
+            margin: 0 10px;
+        }
+
+        .message {
+            color: #d9534f; /* Red color for feedback */
+        }
+
+        .win {
+            color: #28a745; /* Green color for win */
+        }
+
+        .draw {
+            color: #ffc107; /* Yellow color for draw */
+        }
+
+        .mode-selector {
+            margin-top: 20px;
+        }
+
+        .mode-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .mode-btn:hover {
+            background-color: #218838;
+        }
+
+        .restart-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Rock, Paper, Scissors Game</h1>
+
+        <p>Choose your move:</p>
+
+        <div class="choices">
+            <button class="choice-btn" onclick="playGame('rock')">Rock</button>
+            <button class="choice-btn" onclick="playGame('paper')">Paper</button>
+            <button class="choice-btn" onclick="playGame('scissors')">Scissors</button>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn" onclick="setMode('easy')">Easy Mode</button>
+            <button class="mode-btn" onclick="setMode('hard')">Hard Mode</button>
+        </div>
+
+        <p class="result" id="resultMessage"></p>
+
+        <div class="game-images">
+            <div>
+                <p>Your Move</p>
+                <img id="playerMoveImg" src="" alt="Your Move">
+            </div>
+            <div>
+                <p>Computer's Move</p>
+                <img id="computerMoveImg" src="" alt="Computer's Move">
+            </div>
+        </div>
+
+        <button class="restart-btn" onclick="resetGame()">Restart Game</button>
+
+        <a href="home.html" class="choice-btn">Go Back Home</a>
+    </div>
+
+    <script>
+        let mode = 'easy'; // Default mode
+        let playerChoice = '';
+        let computerChoice = '';
+        let choices = ['rock', 'paper', 'scissors'];
+
+        // Set the mode
+        function setMode(selectedMode) {
+            mode = selectedMode;
+            alert(`Mode set to ${mode.charAt(0).toUpperCase() + mode.slice(1)} mode`);
+        }
+
+        // Get computer's choice (easy or hard mode)
+        function getComputerChoice() {
+            if (mode === 'easy') {
+                return choices[Math.floor(Math.random() * 3)]; // Random choice
+            } else {
+                // Hard mode: Make the computer try to beat the player's last choice
+                if (playerChoice === 'rock') {
+                    return 'paper'; // Paper beats rock
+                } else if (playerChoice === 'paper') {
+                    return 'scissors'; // Scissors beats paper
+                } else {
+                    return 'rock'; // Rock beats scissors
+                }
+            }
+        }
+
+        // Play the game
+        function playGame(playerMove) {
+            playerChoice = playerMove;
+            computerChoice = getComputerChoice();
+            updateImages();
+            displayResult();
+        }
+
+        // Update the images for player and computer
+        function updateImages() {
+            document.getElementById('playerMoveImg').src = `${playerChoice}.png`;
+            document.getElementById('computerMoveImg').src = `${computerChoice}.png`;
+        }
+
+        // Display the result
+        function displayResult() {
+            const resultMessage = document.getElementById("resultMessage");
+
+            if (playerChoice === computerChoice) {
+                resultMessage.textContent = `It's a draw! You both chose ${playerChoice}.`;
+                resultMessage.className = "result draw";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                resultMessage.textContent = `You win! ${playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1)} beats ${computerChoice}.`;
+                resultMessage.className = "result win";
+            } else {
+                resultMessage.textContent = `You lose! ${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)} beats ${playerChoice}.`;
+                resultMessage.className = "result message";
+            }
+        }
+
+        // Reset the game
+        function resetGame() {
+            document.getElementById("resultMessage").textContent = "";
+            document.getElementById("playerMoveImg").src = "";
+            document.getElementById("computerMoveImg").src = "";
+        }
+    </script>
+
+</body>
+</html>

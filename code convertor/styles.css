@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Horizontally centers the container */
+    align-items: center; /* Vertically centers the container */
+    flex-direction: column;
+    padding: 20px;
+    background-image: url('img1.jpg'); /* Set the background image */
+    background-size: cover; /* Ensures the image covers the whole body */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    min-height: 100vh; /* Ensures the body takes the full height of the viewport */
+    margin: 0; /* Removes any default margin to avoid unintended spacing */
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    
+    /* Background color with transparency (glass effect) */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    
+    /* Frosted glass effect */
+    backdrop-filter: blur(10px); /* Applies a blur to the background behind the container */
+    
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Optional: Shadow to enhance the glass look */
+}
+
+h1, h3 {
+    color: #fff; /* Text color for better visibility on the semi-transparent background */
+}
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+button{
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.conversion-options {
+    margin-bottom: 40px;
+}
