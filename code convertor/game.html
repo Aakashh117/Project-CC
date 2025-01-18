@@ -6,32 +6,47 @@
     <title>Rock, Paper, Scissors Game</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            color: white;
             flex-direction: column;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 80%;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
             max-width: 600px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.03);
         }
 
         h1 {
-            color: #333;
+            font-size: 2.5em;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 15px 0;
         }
 
         .choices {
             margin: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .choice-btn {
@@ -40,25 +55,41 @@
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
-            margin: 10px;
-            transition: background-color 0.3s ease;
+            margin: 0 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         .choice-btn:hover {
             background-color: #0056b3;
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .choice-btn:active {
             background-color: #004085;
+            transform: scale(0.98);
         }
 
         .result {
             margin-top: 20px;
-            font-size: 20px;
+            font-size: 1.5em;
             font-weight: bold;
             color: #333;
+        }
+
+        .result.draw {
+            color: #ffc107; /* Yellow for draw */
+        }
+
+        .result.win {
+            color: #28a745; /* Green for win */
+        }
+
+        .result.lose {
+            color: #d9534f; /* Red for lose */
         }
 
         .game-images {
@@ -67,26 +98,26 @@
             margin-top: 20px;
         }
 
+        .game-images div {
+            margin: 0 20px;
+            text-align: center;
+        }
+
         .game-images img {
-            width: 50px;
-            height: 50px;
-            margin: 0 10px;
+            width: 80px;
+            height: 80px;
+            margin: 10px 0;
+            transition: transform 0.3s ease;
         }
 
-        .message {
-            color: #d9534f; /* Red color for feedback */
-        }
-
-        .win {
-            color: #28a745; /* Green color for win */
-        }
-
-        .draw {
-            color: #ffc107; /* Yellow color for draw */
+        .game-images img:hover {
+            transform: scale(1.2);
         }
 
         .mode-selector {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .mode-btn {
@@ -94,9 +125,10 @@
             background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             margin: 0 10px;
+            transition: background-color 0.3s ease;
         }
 
         .mode-btn:hover {
@@ -104,18 +136,56 @@
         }
 
         .restart-btn {
-            padding: 10px 20px;
+            padding: 18px 24px;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
         }
 
         .restart-btn:hover {
             background-color: #0056b3;
+            transform: scale(1.1);
         }
+
+        .restart-btn:active {
+            background-color: #004085;
+            transform: scale(0.98);
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: #218838;
+        }
+
+        .btn-home:active {
+            background-color: #1c7c31;
+        }
+
+        .instructions {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 12px;
+            color: #f1f1f1;
+            font-size: 1.1em;
+            margin-top: 20px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -151,7 +221,20 @@
 
         <button class="restart-btn" onclick="resetGame()">Restart Game</button>
 
-        <a href="home.html" class="choice-btn">Go Back Home</a>
+        <a href="home.html" class="btn-home" style="margin-top: 20px;">Go Back Home</a>
+        
+
+        <!-- Instructions Section -->
+        <div class="instructions">
+            <h3>How to Play:</h3>
+            <ul>
+                <li>Click on one of the buttons (Rock, Paper, or Scissors) to make your move.</li>
+                <li>The computer will randomly select one of the moves as well.</li>
+                <li>Rock beats Scissors, Scissors beats Paper, and Paper beats Rock.</li>
+                <li>If both players choose the same move, it's a draw.</li>
+                <li>Choose between Easy or Hard mode: In Hard mode, the computer tries to beat your last choice!</li>
+            </ul>
+        </div>
     </div>
 
     <script>
@@ -212,7 +295,7 @@
                 resultMessage.className = "result win";
             } else {
                 resultMessage.textContent = `You lose! ${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)} beats ${playerChoice}.`;
-                resultMessage.className = "result message";
+                resultMessage.className = "result lose";
             }
         }
 

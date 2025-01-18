@@ -5,11 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General styles for body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.03);
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-top: 10px;
+            display: block;
+            color: #ddd;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        input, select {
+            font-size: 1.1em;
+        }
+
+        button {
+            background: linear-gradient(135deg, #42a5f5, #478ed1);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #26c6da, #0097a7);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn:active {
+            background-color: #3e8e41;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #eee;
+            text-align: center;
+        }
+
+        /* Styling the output box for the converted number */
+        .output-box {
+            display: inline-block;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff5722, #ff9800); /* Brighter gradient */
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            min-width: 250px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* Animating the output box on hover */
+        .output-box:hover {
+            transform: scale(1.1); /* Slightly larger effect */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* More prominent shadow */
+            background: linear-gradient(135deg, #ff9800, #ff5722); /* Reversed gradient for hover */
+        }
+
+        #numberResult {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #00ff99;
+        }
+
+    </style>
 </head>
 <body>
+
     <div class="container">
         <div class="conversion-options">
             <h3>Number System Converter</h3>
+            
             <label for="inputNumber">Enter Number:</label>
             <input type="text" id="inputNumber" placeholder="Enter Number">
 
@@ -28,11 +165,47 @@
             </select>
             
             <button onclick="convertNumber()">Convert</button>
-            <p><strong>Converted Number: </strong><span id="numberResult"></span></p>
+            
+            <p><strong>Converted Number: </strong><span class="output-box" id="numberResult"></span></p>
             <a href="home.html" class="btn">Go Back Home</a>
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <script>
+        function convertNumber() {
+            let inputNumber = document.getElementById("inputNumber").value;
+            let inputBase = document.getElementById("inputBase").value;
+            let outputBase = document.getElementById("outputBase").value;
+            let numberResult = document.getElementById("numberResult");
+
+            if (inputNumber === "") {
+                numberResult.textContent = "Please enter a number.";
+                return;
+            }
+
+            let convertedNumber;
+
+            // Convert input number based on selected input base
+            if (inputBase === "binary") {
+                inputNumber = parseInt(inputNumber, 2);
+            } else if (inputBase === "hexadecimal") {
+                inputNumber = parseInt(inputNumber, 16);
+            } else if (inputBase === "decimal") {
+                inputNumber = parseInt(inputNumber, 10);
+            }
+
+            // Convert the number to the selected output base
+            if (outputBase === "binary") {
+                convertedNumber = inputNumber.toString(2);
+            } else if (outputBase === "hexadecimal") {
+                convertedNumber = inputNumber.toString(16).toUpperCase();
+            } else if (outputBase === "decimal") {
+                convertedNumber = inputNumber.toString(10);
+            }
+
+            numberResult.textContent = convertedNumber;
+        }
+    </script>
+
 </body>
 </html>

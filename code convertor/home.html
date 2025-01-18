@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Code Converter & Game</title>
     <style>
-        /* Internal CSS for the Home page */
+        /* General styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             text-align: center;
             display: flex;
             justify-content: center;
@@ -16,45 +16,122 @@
             height: 100vh;
             margin: 0;
             flex-direction: column;
+            color: white;
+            overflow: hidden; /* Prevent scrolling */
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            width: 80%;
-            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 800px; /* Increase width for larger screen */
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
         }
 
         h1 {
-            color: #333;
+            font-size: 3em; /* Increase font size */
+            margin-bottom: 30px; /* Add space below the heading */
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        p {
+            font-size: 1.5em; /* Increase font size for better readability */
+            margin-bottom: 40px; /* Add space below the paragraph */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 80px; /* Increased space between the buttons */
+            margin-top: 20px;
         }
 
         .btn {
             display: inline-block;
-            padding: 15px 30px;
-            margin: 10px;
-            background-color: #4CAF50;
+            padding: 25px 50px; /* Increase padding for buttons */
+            background: linear-gradient(135deg, #42a5f5, #478ed1);
             color: white;
             text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease;
+            font-size: 1.5em; /* Increase button text size */
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
         }
 
+        /* Neon Border Effect on Hover */
         .btn:hover {
-            background-color: #45a049;
+            background: linear-gradient(135deg, #26c6da, #0097a7);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            font-weight: bold;
+            border: 2px solid #00ff99; /* Neon green border */
+            outline: none;
         }
 
         .btn:active {
-            background-color: #3e8e41;
+            transform: translateY(0);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
         }
 
-        p {
-            font-size: 20px;
-            color: #555;
+        /* Adding a glowing neon effect around the button */
+        .btn:hover {
+            animation: neonGlow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            0% {
+                box-shadow: 0 0 5px rgba(0, 255, 153, 0.7), 0 0 15px rgba(0, 255, 153, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 255, 153, 1), 0 0 40px rgba(0, 255, 153, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(0, 255, 153, 1), 0 0 50px rgba(0, 255, 153, 0.7);
+            }
+        }
+
+        /* Optional: Adding responsiveness for smaller screens */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
+
+            p {
+                font-size: 1.2em;
+                margin-bottom: 25px;
+            }
+
+            .btn {
+                font-size: 1.2em;
+                padding: 20px 40px; /* Adjust button padding */
+            }
+
+            .button-container {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+                gap: 30px; /* Increased gap between buttons when stacked */
+            }
         }
     </style>
 </head>
@@ -62,11 +139,14 @@
 
     <div class="container">
         <h1>Welcome to Code Converter & Game</h1>
+        <p>Choose what you want to do today:</p>
         
-        <p>Select an option below:</p>
+        <div class="button-container" style="display: flex; justify-content: center;">
+            <a href="index.html" class="btn" style="margin-right: 30px;">Converter</a>
+            <a href="game.html" class="btn">Game Option</a>
+        </div>
         
-        <a href="index.html" class="btn">Code Converter</a>
-        <a href="game.html" class="btn">Game Option</a>
+        
     </div>
 
 </body>
